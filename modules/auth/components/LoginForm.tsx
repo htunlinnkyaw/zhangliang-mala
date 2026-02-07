@@ -41,7 +41,7 @@ export default function LoginForm() {
               Log in to your account
             </CardTitle>
             <CardDescription className=" text-left">
-              Enter your email and password below to login
+              Enter your email and password below to
             </CardDescription>
           </div>
           <div>
