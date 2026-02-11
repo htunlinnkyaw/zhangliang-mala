@@ -1,26 +1,38 @@
-import { UserEditFormValues } from "@/types/UserTypes";
-import { getCookie } from "react-use-cookie";
+import {UserEditFormValues} from "@/types/UserTypes";
+import {getCookie} from "react-use-cookie";
 
 export const profileApiUrl =
-  process.env.NEXT_PUBLIC_BASE_URL + "/dashboard/user-profile";
+    process.env.NEXT_PUBLIC_BASE_URL + "/dashboard/user-profile";
 
 export function logout(): Promise<Response> {
-  return fetch(`${profileApiUrl}/logout`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getCookie("token")}`,
-    },
-  });
+    return fetch(`${profileApiUrl}/logout`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getCookie("token")}`,
+        },
+    });
 }
 
 export function updateProfile(payload: UserEditFormValues): Promise<Response> {
-  return fetch(`${profileApiUrl}/change-name`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getCookie("token")}`,
-    },
-    body: JSON.stringify(payload),
-  });
+    return fetch(`${profileApiUrl}/change-name`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getCookie("token")}`,
+        },
+        body: JSON.stringify(payload),
+    });
 }
+
+export function updateProfilePhoto(payload: { photo: string }): Promise<Response> {
+    return fetch(`${profileApiUrl}/change-photo`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getCookie("token")}`,
+        },
+        body: JSON.stringify(payload),
+    });
+}
+

@@ -8,12 +8,13 @@ import { Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import useProfileEdit from "../hooks/useProfileEdit";
 import { Spinner } from "@/components/ui/spinner";
 import { UserEditFormValues } from "@/types/UserTypes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateProfile } from "@/services/profileService";
 import { toast } from "sonner";
+import PhotoEditForm from "./PhotoEditForm";
+import ProfileImageChangeBtn from "./ProfileImageChangeBtn";
 
 export const profileEditFormSchema = z.object({
   name: z.string().min(2, "Last name must be at least 2 characters"),
@@ -76,12 +77,10 @@ export default function EditProfileSection() {
           }
           alt="profile image"
         />
-        <Button
-          className={`size-5 absolute bottom-0 right-0 translate-1/2 duration-150 active:scale-90 `}
-        >
-          <Pencil className=" size-2" />
-        </Button>
+        <ProfileImageChangeBtn />
       </div>
+
+      {/* <PhotoEditForm /> */}
 
       <form id="user-edit" onSubmit={handleSubmit(onSubmit)}></form>
 
@@ -98,7 +97,7 @@ export default function EditProfileSection() {
                 aria-invalid={fieldState.invalid}
                 id="name"
                 type="text"
-                placeholder={profile?.name}
+                defaultValue={profile?.email}
                 form="user-edit"
               />
             </Field>
