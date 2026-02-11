@@ -40,7 +40,7 @@ export default function ProfileImageChangeBtn() {
       if (!res.ok) {
         throw new Error(json.message || "Profile update failed");
       }
-      setProfile(json.data);
+      setProfile(json2.data);
       toast.success("Profile updated successfully", {
         id: toastLoading,
       });
