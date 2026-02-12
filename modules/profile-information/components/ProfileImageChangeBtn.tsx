@@ -12,6 +12,7 @@ export default function ProfileImageChangeBtn() {
   const [isLoading, setIsLoading] = useState(false);
   const { setProfile } = useProfileStore();
 
+  // web-api for file-upload
   const handleClick = async () => {
     // const [fileHandle] = await showOpenFilePicker({
     //   types: [

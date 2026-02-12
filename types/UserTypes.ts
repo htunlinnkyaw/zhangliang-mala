@@ -1,5 +1,6 @@
 import {profileEditFormSchema} from "@/modules/profile-information/components/EditProfileSection";
 import z from "zod";
+import {changePasswordFormSchema} from "@/modules/profile-information/components/ChangePasswordSection";
 
 export type User = {
     id: number;
@@ -12,3 +13,4 @@ export type User = {
 };
 
 export type UserEditFormValues = z.infer<typeof profileEditFormSchema>;
+export type ChangePasswordFormValues = z.infer<typeof changePasswordFormSchema>;

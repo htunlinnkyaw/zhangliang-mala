@@ -1,4 +1,4 @@
-import {UserEditFormValues} from "@/types/UserTypes";
+import {ChangePasswordFormValues, UserEditFormValues} from "@/types/UserTypes";
 import {getCookie} from "react-use-cookie";
 
 export const profileApiUrl =
@@ -36,3 +36,13 @@ export function updateProfilePhoto(payload: { photo: string }): Promise<Response
     });
 }
 
+export function changePassword(payload: ChangePasswordFormValues): Promise<Response> {
+    return fetch(`${profileApiUrl}/change-password`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getCookie("token")}`,
+        },
+        body: JSON.stringify(payload),
+    });
+}
