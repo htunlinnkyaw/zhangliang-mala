@@ -31,8 +31,8 @@ export const changePasswordFormSchema = z
     new_password_confirmation: z
       .string()
       .min(8, "New password confirmation must be at least 8 characters"),
-    confirm_check: z.literal(true, {
-      errorMap: () => ({ message: "You must confirm to update profile" }),
+    confirm_check: z.boolean().refine((val) => val === true, {
+      message: "You must confirm to update password",
     }),
   })
   .refine((data) => data.new_password === data.new_password_confirmation, {
