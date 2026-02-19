@@ -1,4 +1,4 @@
-import Header from "@/modules/dashboard/components/Header";
+import Header from "@/components/Header";
 import ProfileInformationSection from "@/modules/profile-information/components/ProfileInformationSection";
 
 export default function Page() {

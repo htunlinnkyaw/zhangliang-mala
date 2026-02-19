@@ -1,67 +1,78 @@
-import {ShoppingCart, UserCircle} from "lucide-react";
+import {
+  ChartBarStacked,
+  ShoppingCart,
+  UserCircle,
+  Users,
+  Utensils,
+} from "lucide-react";
 import ModuleLink from "./ModuleLink";
 
 export default function ModuleLinkList() {
-    const moduleLinks = [
+  const moduleLinks = [
+    {
+      groupTitle: "Sale Module",
+      modules: [
         {
-            groupTitle: "Sale Module",
-            modules: [
-                {
-                    icon: <ShoppingCart/>,
-                    title: "Sale",
-                    href: "/dashboard/sale",
-                },
-            ],
+          icon: <ShoppingCart />,
+          title: "Sale",
+          href: "/dashboard/sale",
+        },
+      ],
+    },
+    {
+      groupTitle: "Management",
+      modules: [
+        {
+          icon: <ChartBarStacked />,
+          title: "Category",
+          href: "/dashboard/categories",
         },
         {
-            groupTitle: "Management",
-            modules: [
-                {
-                    icon: <ShoppingCart/>,
-                    title: "Sale",
-                    href: "/dashboard/sale",
-                },
-                {
-                    icon: <ShoppingCart/>,
-                    title: "Sale",
-                    href: "/dashboard/sale",
-                },
-                {
-                    icon: <ShoppingCart/>,
-                    title: "Sale",
-                    href: "/dashboard/sale",
-                },
-            ],
+          icon: <Utensils />,
+          title: "Menu",
+          href: "/dashboard/menu",
         },
         {
-            groupTitle: "User Information",
-            modules: [
-                {
-                    icon: <UserCircle/>,
-                    title: "Profile Information",
-                    href: "/dashboard/profile-information",
-                },
-            ],
+          icon: <ShoppingCart />,
+          title: "Sale",
+          href: "/dashboard/sale",
         },
-    ];
+        {
+          icon: <Users />,
+          title: "customer",
+          href: "/dashboard/customers",
+        },
+      ],
+    },
+    {
+      groupTitle: "User Information",
+      modules: [
+        {
+          icon: <UserCircle />,
+          title: "Profile Information",
+          href: "/dashboard/profile-information",
+        },
+      ],
+    },
+  ];
 
-    return (
-        <section className=" flex flex-col gap-8 container mx-auto">
-            {moduleLinks.map(({groupTitle, modules}, index) => (
-                <div key={`module-group-${index}`}>
-                    <h4 className=" mb-3">{groupTitle}</h4>
-                    <div className=" grid grid-cols-4 gap-4">
-                        {modules.map(({icon, title, href}, index) => (
-                            <ModuleLink
-                                key={`module-link-${index}`}
-                                icon={icon}
-                                title={title}
-                                href={href}
-                            />
-                        ))}
-                    </div>
-                </div>
+  return (
+    <section className=" flex flex-col gap-8 container mx-auto">
+      {moduleLinks.map(({ groupTitle, modules }, index) => (
+        <div key={`module-group-${index}`}>
+          <h4 className=" mb-3">{groupTitle}</h4>
+          <div className=" grid grid-cols-4 gap-4">
+            {modules.map(({ icon, title, href }, index) => (
+              <ModuleLink
+                key={`module-link-${index}`}
+                icon={icon}
+                title={title}
+                href={href}
+              />
             ))}
-        </section>
-    );
+          </div>
+        </div>
+      ))}
+    </section>
+  );
 }

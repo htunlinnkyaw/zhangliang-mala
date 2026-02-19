@@ -1,3 +1,11 @@
+import Header from "@/components/Header";
+import CustomerListSection from "@/modules/customer/components/list/CustomerListSection";
+
 export default function page() {
-  return <div>page</div>;
+  return (
+    <>
+      <Header currentPage="Customers" />
+      <CustomerListSection />
+    </>
+  );
 }

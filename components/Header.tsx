@@ -1,5 +1,4 @@
 "use client";
-
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -9,7 +8,6 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import {Button} from "@/components/ui/button";
-
 import {ButtonGroup} from "@/components/ui/button-group";
 import {ArrowLeftIcon, ArrowRightIcon, Home} from "lucide-react";
 import {useRouter} from "next/navigation";
@@ -25,11 +23,8 @@ type Props = {
     currentPage: string,
 };
 
-
 export default function Header({links = [], currentPage}: Props) {
-
     const router = useRouter();
-
     return (
         <header className="bg-card">
             <div className="container py-2 mx-auto flex justify-between items-center">
