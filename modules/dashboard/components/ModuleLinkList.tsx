@@ -39,7 +39,7 @@ export default function ModuleLinkList() {
         },
         {
           icon: <Users />,
-          title: "customer",
+          title: "Customer",
           href: "/dashboard/customers",
         },
       ],
