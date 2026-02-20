@@ -1,33 +1,36 @@
 "use client";
+import { CustomerDetailType } from "@/types/CustomerTypes";
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import useCustomerCreate from "../../hooks/useCustomerCreate";
 import { Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { customerGenders } from "@/lib/constants";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
+import useCustomerEdit from "../../hooks/useCustomerEdit";
+type Props = {
+  data: CustomerDetailType;
+};
 
-export default function CustomerCreateForm() {
+export default function CustomerEditForm({ data }: Props) {
   const {
-    onSubmit,
     handleSubmit,
+    onSubmit,
     control,
-    reset,
     formState: { isSubmitting },
-  } = useCustomerCreate();
+  } = useCustomerEdit(data);
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="w-1/2 space-y-6">
-        <FieldGroup className="grid grid-cols-2">
-          {/* customer name */}
+      <form onSubmit={handleSubmit(onSubmit)} className=" w-1/2 space-y-6">
+        <FieldGroup className=" grid grid-cols-2">
           <Controller
             name="name"
             control={control}
@@ -35,7 +38,6 @@ export default function CustomerCreateForm() {
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel>Customer Name</FieldLabel>
                 <Input
-                  type="text"
                   placeholder="Enter customer name"
                   aria-invalid={fieldState.invalid}
                   {...field}
@@ -44,7 +46,7 @@ export default function CustomerCreateForm() {
               </Field>
             )}
           />
-          {/* DoB */}
+
           <Controller
             name="date_of_birth"
             control={control}
@@ -61,68 +63,66 @@ export default function CustomerCreateForm() {
               </Field>
             )}
           />
-          {/* email */}
+
           <Controller
             name="email"
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel>Email</FieldLabel>
+                <FieldLabel>Customer Email</FieldLabel>
                 <Input
-                  type="email"
-                  placeholder="Enter customer email"
                   aria-invalid={fieldState.invalid}
+                  placeholder="Enter customer email"
                   {...field}
                 />
                 {fieldState.error && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
           />
-          {/* phone */}
+
           <Controller
             name="phone"
             control={control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel>Phone</FieldLabel>
+                <FieldLabel>Customer Phone</FieldLabel>
                 <Input
-                  type="text"
-                  placeholder="Enter customer phone"
                   aria-invalid={fieldState.invalid}
+                  placeholder="Enter customer phone"
                   {...field}
                 />
                 {fieldState.error && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
           />
-          {/* gender */}
+
           <Controller
             name="gender"
             control={control}
             render={({ field, fieldState }) => (
               <Field
-                className="col-span-full"
+                className=" col-span-full"
                 data-invalid={fieldState.invalid}
               >
                 <FieldLabel>Gender</FieldLabel>
                 <RadioGroup
                   value={field.value || ""}
                   onValueChange={field.onChange}
-                  className={`flex gap-4`}
+                  className=" flex gap-4"
                 >
                   {customerGenders.map((gender) => (
                     <div
-                      className="flex gap-1"
+                      className=" flex gap-1"
                       key={gender}
                       data-invalid={fieldState.invalid}
                     >
                       <RadioGroupItem
-                        className={"size-3"}
+                        className=" size-3"
                         value={gender}
                         id={`gender-${gender}`}
                       />
                       <FieldLabel
-                        className="capitalize"
+                        className=" capitalize"
                         aria-invalid={fieldState.invalid}
                         htmlFor={`gender-${gender}`}
                       >
@@ -131,11 +131,12 @@ export default function CustomerCreateForm() {
                     </div>
                   ))}
                 </RadioGroup>
+
                 {fieldState.error && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
           />
-          {/* address */}
+
           <Controller
             name="address"
             control={control}
@@ -157,7 +158,6 @@ export default function CustomerCreateForm() {
           />
         </FieldGroup>
         <FieldGroup>
-          {/* stay here checkbox */}
           <Controller
             name="stay_here"
             control={control}
@@ -169,13 +169,16 @@ export default function CustomerCreateForm() {
                     onCheckedChange={field.onChange}
                     id="stay-here-check"
                   />
-                  <FieldLabel>Stay here and create another customer</FieldLabel>
+                  <FieldLabel htmlFor="stay-here-check">
+                    Stay here and continue editing
+                  </FieldLabel>
                 </div>
+
                 {fieldState.error && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
           />
-          {/* confirm checkbox */}
+
           <Controller
             name="confirm"
             control={control}
@@ -188,7 +191,7 @@ export default function CustomerCreateForm() {
                     id="confirm-check"
                   />
                   <FieldLabel htmlFor="confirm-check">
-                    I confirm to create new customer
+                    I confirm to update customer
                   </FieldLabel>
                 </div>
 
@@ -196,18 +199,21 @@ export default function CustomerCreateForm() {
               </Field>
             )}
           />
-          <Field className="col-span-full" orientation={"horizontal"}>
-            <Button variant={"outline"} type="button" onClick={() => reset()}>
-              Cancel
-            </Button>
+
+          <Field className=" col-span-full" orientation="horizontal">
+            <Link href={`/dashboard/customers/${data.id}`}>
+              <Button variant="outline" type="button">
+                Cancel
+              </Button>
+            </Link>
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
-                  <Spinner className="size-2" />
-                  <span>Saving...</span>
+                  <Spinner className=" size-2" />
+                  <span>Updating ...</span>
                 </>
               ) : (
-                "Save customer"
+                "Update customer"
               )}
             </Button>
           </Field>

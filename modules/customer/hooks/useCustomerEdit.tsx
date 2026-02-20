@@ -1,4 +1,14 @@
 import { customerGenders } from "@/lib/constants";
+import { customerApiUrl, updateCustomer } from "@/services/customerService";
+import {
+  CustomerDetailType,
+  CustomerEditFormValues,
+} from "@/types/CustomerTypes";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { mutate } from "swr";
 import z from "zod";
 
 export const customerEditFormSchema = z.object({
@@ -23,6 +33,39 @@ export const customerEditFormSchema = z.object({
   }),
 });
 
-export default function useCustomerEdit() {
-  return <div>useCustomerEdit</div>;
+export default function useCustomerEdit(customerData: CustomerDetailType) {
+  const form = useForm<CustomerEditFormValues>({
+    resolver: zodResolver(customerEditFormSchema),
+    defaultValues: {
+      ...customerData,
+      stay_here: false,
+      confirm: false,
+    },
+  });
+  const router = useRouter();
+
+  const onSubmit = async (formData: CustomerEditFormValues) => {
+    try {
+      const { stay_here, confirm, ...payload } = formData;
+      const res = await updateCustomer(payload, customerData.id);
+      const json = await res.json();
+      if (!res.ok) {
+        throw new Error(json.message || "Failed to update customer");
+      }
+      mutate(`${customerApiUrl}/${customerData.id}`);
+      toast.success("Customer updated successfully");
+      form.reset();
+      if (!stay_here) {
+        router.push(`/dashboard/customers/${json.data.id}`);
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An expected error occurred");
+      }
+    }
+  };
+
+  return { ...form, onSubmit };
 }

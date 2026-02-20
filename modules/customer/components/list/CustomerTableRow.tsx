@@ -5,6 +5,7 @@ import { ArrowRight, Pencil, Trash } from "lucide-react";
 import Link from "next/link";
 import dayjs from "dayjs";
 import { CustomerDetailType } from "@/types/CustomerTypes";
+import CustomerDeleteBtn from "../delete/CustomerDeleteBtn";
 
 type Props = {
   customer: CustomerDetailType;
@@ -44,11 +45,7 @@ export default function CustomerTableRow({
       </TableCell>
       <TableCell>
         <ButtonGroup className=" flex justify-end w-full">
-          <Link href={`#`}>
-            <Button variant={"secondary"} size={"xs"}>
-              <Trash className=" size-2" />
-            </Button>
-          </Link>
+          <CustomerDeleteBtn id={id} />
           <Link href={`/dashboard/customers/${id}/edit`}>
             <Button variant={"secondary"} size={"xs"}>
               <Pencil className=" size-2" />

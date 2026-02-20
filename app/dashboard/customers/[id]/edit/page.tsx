@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import CustomerEditSection from "@/modules/customer/components/edit/CustomerEditSection";
 
 export default async function page({
   params,
@@ -15,7 +16,7 @@ export default async function page({
         ]}
         currentPage="Edit"
       />
-      {/* <CustomerEditSection /> */}
+      <CustomerEditSection />
     </>
   );
 }
