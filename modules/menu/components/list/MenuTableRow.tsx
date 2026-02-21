@@ -5,6 +5,7 @@ import { MenuDetailType } from "@/types/MenuTypes";
 import dayjs from "dayjs";
 import { ArrowRight, Pencil, Trash } from "lucide-react";
 import Link from "next/link";
+import MenuDeleteBtn from "../delete/MenuDeleteBtn";
 
 type Props = {
   menu: MenuDetailType;
@@ -38,17 +39,13 @@ export default function MenuTableRow({
       </TableCell>
       <TableCell>
         <ButtonGroup className=" flex justify-end w-full">
-          <Link href={`/dashboard/customers/${id}/edit`}>
-            <Button variant={"secondary"} size={"xs"}>
-              <Trash className=" size-2" />
-            </Button>
-          </Link>
-          <Link href={`/dashboard/customers/${id}/edit`}>
+          <MenuDeleteBtn id={id} />
+          <Link href={`/dashboard/menus/${id}/edit`}>
             <Button variant={"secondary"} size={"xs"}>
               <Pencil className=" size-2" />
             </Button>
           </Link>
-          <Link href={`/dashboard/customers/${id}`}>
+          <Link href={`/dashboard/menus/${id}`}>
             <Button variant={"secondary"} size={"xs"}>
               <ArrowRight className=" size-2" />
             </Button>

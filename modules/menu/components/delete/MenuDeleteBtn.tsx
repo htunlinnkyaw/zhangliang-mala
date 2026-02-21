@@ -1,6 +1,8 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import { customerApiUrl, deleteCustomer } from "@/services/customerService";
+import { deleteMenu, menuApiUrl } from "@/services/menuService";
 import { Trash2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -11,24 +13,24 @@ type Props = {
   id: number;
 };
 
-export default function CustomerDeleteBtn({ id }: Props) {
+export default function MenuDeleteBtn({ id }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const searchParams = useSearchParams();
 
   const handleClick = async () => {
     setIsLoading(true);
     try {
-      const res = await deleteCustomer(id);
+      const res = await deleteMenu(id);
       const json = await res.json();
       if (!res.ok) {
-        throw new Error(json.message || "Failed to delete customer.");
+        throw new Error(json.message || "Failed to delete menu.");
       }
       mutate(
         searchParams.toString()
-          ? `${customerApiUrl}?${searchParams.toString()}`
-          : `${customerApiUrl}`,
+          ? `${menuApiUrl}?${searchParams.toString()}`
+          : `${menuApiUrl}`,
       );
-      toast.success("Customer deleted successfully.");
+      toast.success("Menu delete successfully.");
     } catch (error: unknown) {
       if (error instanceof Error) {
         toast.error(error.message);
@@ -39,6 +41,7 @@ export default function CustomerDeleteBtn({ id }: Props) {
       setIsLoading(false);
     }
   };
+
   return (
     <Button
       disabled={isLoading}
