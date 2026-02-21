@@ -9,21 +9,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
-import CustomerTableRow from "./CustomerTableRow";
-import CustomerTableLoader from "./CustomerTableLoader";
-import useCustomerList from "../../hooks/useCustomerList";
-import { CustomerDetailType } from "@/types/CustomerTypes";
 import TablePagination from "@/components/TablePagination";
+import { MenuDetailType } from "@/types/MenuTypes";
+import useMenuList from "../../hooks/useMenuList";
+import MenuTableLoader from "./MenuTableLoader";
+import MenuTableRow from "./MenuTableRow";
 
-export default function CustomerTable() {
-  const { data, error, isLoading } = useCustomerList();
+export default function MenuTable() {
+  const { data, isLoading } = useMenuList();
   return (
     <>
       <div className="flex justify-between gap-1">
-        <TableSearchInput placeholder="Search customers..." />
+        <TableSearchInput placeholder="Search Menu..." />
         <div>
-          <Link href={"/dashboard/customers/create"}>
-            <Button size={"sm"}>Create Customer</Button>
+          <Link href={"/dashboard/menus/create"}>
+            <Button size={"sm"}>Create Menu</Button>
           </Link>
         </div>
       </div>
@@ -31,20 +31,20 @@ export default function CustomerTable() {
         <TableHeader>
           <TableRow>
             <TableHead>#</TableHead>
-            <TableHead>Customer</TableHead>
-            <TableHead>Phone</TableHead>
-            <TableHead>Gender</TableHead>
-            <TableHead>Address</TableHead>
+            <TableHead>Title</TableHead>
+            <TableHead>Category</TableHead>
+            <TableHead>Price</TableHead>
+            <TableHead>Image</TableHead>
             <TableHead>Created</TableHead>
             <TableHead className=" text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody className="[&_td]:align-top">
           {isLoading ? (
-            <CustomerTableLoader />
+            <MenuTableLoader />
           ) : (
-            data.data.map((el: CustomerDetailType) => (
-              <CustomerTableRow key={el.id} customer={el} />
+            data.data.map((el: MenuDetailType) => (
+              <MenuTableRow key={el.id} menu={el} />
             ))
           )}
         </TableBody>
