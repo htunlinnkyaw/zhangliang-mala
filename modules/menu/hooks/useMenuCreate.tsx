@@ -61,7 +61,7 @@ export default function useMenuCreate() {
       toast.success("Menu created successfully");
       form.reset();
       if (!stay_here) {
-        router.push(`/dashboard/menus/${json.data.id}`);
+        router.push(`/dashboard/menus/${json.data.data.id}`);
       }
     } catch (error: unknown) {
       if (error instanceof Error) {

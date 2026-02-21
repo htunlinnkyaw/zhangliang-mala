@@ -1,25 +1,38 @@
 "use client";
 
+import Link from "next/link";
+import MenuDetailCard from "./MenuDetailCard";
+import MenuDetailCardLoader from "./MenuDetailCardLoader";
+import { Button } from "@/components/ui/button";
 import useMenuDetail from "../../hooks/useMenuDetail";
-import { useParams } from "next/navigation";
 
 export default function MenuDetailSection() {
-  const params = useParams();
-  const id = params.id as string;
-  const { menu, isLoading, error } = useMenuDetail(id);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading menu</div>;
-  if (!menu) return <div>Menu not found</div>;
-
+  const { id, data, error, isLoading } = useMenuDetail();
   return (
-    <div className="p-4 border rounded shadow max-w-md mx-auto">
-      <h2 className="text-2xl font-bold">{menu.name}</h2>
-      <p className="text-xl text-blue-600 font-semibold mb-4">${menu.price}</p>
-      <div className="space-y-2">
-        <p><strong>Description:</strong> {menu.description || "No description"}</p>
-        <p className="text-gray-500 text-sm">Created at: {new Date(menu.created_at).toLocaleString()}</p>
+    <section className="container mx-auto py-3 flex flex-col gap-4">
+      <div>
+        <h3 className="text-xl font-semibold mb-1">Menu Detail</h3>
+        <p className="text-xs text-muted-foreground">
+          Find everything you need to know about this menu right here.
+        </p>
       </div>
-    </div>
+      {isLoading ? (
+        <MenuDetailCardLoader />
+      ) : (
+        <MenuDetailCard data={data.data} />
+      )}
+      <div className="flex gap-1">
+        <Link href={`/dashboard/menus`}>
+          <Button variant={"outline"} size={"sm"}>
+            All Customer
+          </Button>
+        </Link>
+        <Link href={`/dashboard/customers/${id}/edit`}>
+          <Button variant={"outline"} size={"sm"}>
+            Edit Customer
+          </Button>
+        </Link>
+      </div>
+    </section>
   );
 }

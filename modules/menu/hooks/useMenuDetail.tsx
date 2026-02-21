@@ -1,17 +1,11 @@
 import { fetcher } from "@/lib/fetcher";
 import { menuApiUrl } from "@/services/menuService";
+import { useParams } from "next/navigation";
 import useSWR from "swr";
 
-export default function useMenuDetail(id: string) {
-  const { data, error, isLoading, mutate } = useSWR(
-    id ? `${menuApiUrl}/${id}` : null,
-    fetcher
-  );
+export default function useMenuDetail() {
+  const { id } = useParams();
+  const swr = useSWR(`${menuApiUrl}/${id}`, fetcher);
 
-  return {
-    menu: data?.data,
-    isLoading,
-    error,
-    mutate,
-  };
+  return { id, ...swr };
 }

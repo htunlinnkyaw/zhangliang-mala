@@ -16,8 +16,9 @@ export type MenuUpdatePayloadValues = Omit<
 >;
 
 export type MenuDetailType = MenuStorePayloadValues & {
-    id: number,
-    user: User,
-    created_at: string,
-    updated_at: string
+  id: number;
+  category: object;
+  user: User;
+  created_at: string;
+  updated_at: string;
 };

@@ -19,7 +19,7 @@ export default function CustomerDetailSection() {
       {isLoading ? (
         <CustomerDetailLoader />
       ) : (
-        <CustomerDetailCard data={data.data} />
+        <CustomerDetailCard data={data?.data} />
       )}
       <div className="flex gap-1">
         <Link href={`/dashboard/customers`}>
