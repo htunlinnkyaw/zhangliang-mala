@@ -30,7 +30,7 @@ export default function ModuleLinkList() {
         {
           icon: <Utensils />,
           title: "Menu",
-          href: "/dashboard/menu",
+          href: "/dashboard/menus",
         },
         {
           icon: <ShoppingCart />,
