@@ -2,41 +2,45 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { CategoryDetailType } from "@/types/CategoryTypes";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Edit2, Eye } from "lucide-react";
+import { ArrowRight, Pencil } from "lucide-react";
+import dayjs from "dayjs";
+import { ButtonGroup } from "@/components/ui/button-group";
+import CustomerDeleteBtn from "@/modules/customer/components/delete/CustomerDeleteBtn";
 import CategoryDeleteBtn from "../delete/CategoryDeleteBtn";
 
 export default function CategoryTableRow({
-    category,
+  category: { id, title, created_at, user, updated_at },
 }: {
-    category: CategoryDetailType;
+  category: CategoryDetailType;
 }) {
-    return (
-        <TableRow>
-            <TableCell className="font-medium">{category.id}</TableCell>
-            <TableCell>{category.title}</TableCell>
-            <TableCell>{category.slug}</TableCell>
-            <TableCell>
-                {new Date(category.created_at).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                })}
-            </TableCell>
-            <TableCell className="text-right">
-                <div className="flex justify-end gap-2">
-                    <Link href={`/dashboard/categories/${category.id}`}>
-                        <Button variant="outline" size="icon" className="h-8 w-8">
-                            <Eye className="h-4 w-4" />
-                        </Button>
-                    </Link>
-                    <Link href={`/dashboard/categories/${category.id}/edit`}>
-                        <Button variant="outline" size="icon" className="h-8 w-8">
-                            <Edit2 className="h-4 w-4" />
-                        </Button>
-                    </Link>
-                    <CategoryDeleteBtn id={category.id} />
-                </div>
-            </TableCell>
-        </TableRow>
-    );
+  return (
+    <TableRow>
+      <TableCell>{id}</TableCell>
+      <TableCell>{title}</TableCell>
+      <TableCell>
+        <p>{user.name}</p>
+        <p
+          className=" text-muted-foreground flex items-center gap-1"
+          title={dayjs(created_at).format("D MMM YYYY, h:mm A")}
+        >
+          {dayjs(updated_at).format("D MMM YYYY")}
+        </p>
+      </TableCell>
+      <TableCell>
+        <ButtonGroup className=" flex justify-end w-full">
+          <CategoryDeleteBtn id={id} />
+          <Link href={`/dashboard/categories/${id}/edit`}>
+            <Button variant={"secondary"} size={"xs"}>
+              <Pencil className=" size-2" />
+            </Button>
+          </Link>
+          <Link href={`/dashboard/categories/${id}`}>
+            <Button variant={"secondary"} size={"xs"}>
+              <ArrowRight className=" size-2" />
+            </Button>
+          </Link>
+        </ButtonGroup>
+      </TableCell>
+    </TableRow>
+  );
 }

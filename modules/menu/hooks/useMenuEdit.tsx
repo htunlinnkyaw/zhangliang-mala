@@ -57,6 +57,7 @@ export default function useMenuEdit(menuData: MenuDetailType) {
         throw new Error(json.message || "Failed to update menu.");
       }
       mutate(`${menuApiUrl}/${menuData.id}`);
+      mutate(`${menuApiUrl}/${menuData.id}/edit`);
       toast.success("Menu updated successfully");
       form.reset();
       if (!stay_here) {
