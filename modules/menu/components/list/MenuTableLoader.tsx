@@ -27,7 +27,7 @@ export default function MenuTableLoader() {
           <TableCell>
             <Skeleton className="h-3 w-16" />
           </TableCell>
-
+          
           <TableCell>
             <Skeleton className="h-6 w-14 rounded-md" />
           </TableCell>

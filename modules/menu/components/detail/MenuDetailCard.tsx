@@ -5,7 +5,7 @@ type Props = {
 };
 
 export default function MenuDetailCard({
-  data: { title, category, price, image, created_at, updated_at },
+  data: {  title, category, price, image, created_at, updated_at },
 }: Props) {
   return (
     <div className="w-1/2 grid grid-cols-2 gap-6 border border-muted p-4">

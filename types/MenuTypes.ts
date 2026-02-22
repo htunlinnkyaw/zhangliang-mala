@@ -22,3 +22,13 @@ export type MenuDetailType = MenuStorePayloadValues & {
   created_at: string;
   updated_at: string;
 };
+
+// temp type definition for category select options, should be replaced with actual type from API response
+export type categoryMenuSelectOption = {
+  id: number;
+  title: string;
+  slug: string;
+  user: User;
+  created_at: string;
+  updated_at: string;
+};

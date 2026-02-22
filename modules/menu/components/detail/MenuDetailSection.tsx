@@ -19,17 +19,17 @@ export default function MenuDetailSection() {
       {isLoading ? (
         <MenuDetailCardLoader />
       ) : (
-        <MenuDetailCard data={data.data} />
+        <MenuDetailCard data={data?.data} />
       )}
       <div className="flex gap-1">
         <Link href={`/dashboard/menus`}>
           <Button variant={"outline"} size={"sm"}>
-            All Customer
+            All Menus
           </Button>
         </Link>
-        <Link href={`/dashboard/customers/${id}/edit`}>
+        <Link href={`/dashboard/menus/${id}/edit`}>
           <Button variant={"outline"} size={"sm"}>
-            Edit Customer
+            Edit Menu
           </Button>
         </Link>
       </div>
